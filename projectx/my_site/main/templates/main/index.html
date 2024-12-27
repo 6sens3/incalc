@@ -1,0 +1,351 @@
+
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"<base href=".">
+    <title>Калькулятор</title>
+    <style>
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+        background-color: #7fb5ac;
+        font-family: Arial, sans-serif;
+    }
+    
+    .calculator {
+        background-color: #f0f0f0;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        width:500px;
+    }
+    
+    .display {
+        background-color: #888;
+        color: black;
+        padding: 10px;
+        margin-bottom: 15px;
+        text-align: right;
+        font-size: 24px;
+        border-radius: 5px;
+        min-height: 40px;
+    }
+    
+    .buttons {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 5px;
+    }
+    
+    button {
+        padding: 10px;
+        font-size: 14px;
+        border: none;
+        background-color: #e0e0e0;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.2s;
+    }
+    
+    button:hover {
+        background-color: #d0d0d0;
+    }
+    
+    .equals {
+        grid-row: span 2;
+        background-color: #b8d4d1;
+    }
+    
+    .title {
+        color: black;
+        margin-bottom: 20px;
+        font-size: 20px;
+        text-align:center;
+    }
+    
+    .functions {
+        margin-top: 20px;
+        font-size: 12px;
+        color: #333;
+    }
+    
+    .functions h3 {
+        margin: 5px 0;
+    }
+    
+    .functions-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+    
+    @media (min-width: 768px) {
+        .functions-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+    
+    .function-block {
+        margin-top: 10px;
+    }
+    
+    @media (max-width: 600px) {
+        .calculator {
+            width: 95%;
+            padding: 10px;
+        }
+        
+        .buttons {
+            grid-template-columns: repeat(4, 1fr);
+        }
+        
+        button {
+            padding: 8px;
+            font-size: 12px;
+        }
+    }
+    </style>
+    </head>
+    <body>
+    <a href ="/converter" style="width: 45px; height: 45px; left: 78px; top: 78px; position: absolute; background: #d0d0d0; border-radius: 5px;"></a>
+    <img style="width: 35px; height: 35px; left: 83px; top: 83px; position: absolute; pointer-events: none;" src="https://cdn-icons-png.flaticon.com/512/60/60671.png" />
+    <div class="calculator">
+        <b><div class="title">Онлайн-калькулятор для инженерных расчётов</div></b>
+        <div class="display" id="display">0</div>
+        <div class="buttons">
+            <button onclick="trig(&#39;sin&#39;)">sin</button>
+            <button onclick="trig(&#39;asin&#39;)">asin</button>
+            <button onclick="constant(&#39;PI&#39;)">π</button>
+            <button onclick="memClear()">MC</button>
+            <button onclick="memRecall()">MR</button>
+            <button onclick="memSub()">M-</button>
+            <button onclick="memAdd()">M+</button>
+    
+            <button onclick="trig(&#39;cos&#39;)">cos</button>
+            <button onclick="trig(&#39;acos&#39;)">acos</button>
+            <button onclick="constant(&#39;E&#39;)">e</button>
+            <button onclick="addChar(&#39;(&#39;)">(</button>
+            <button onclick="plusMinus()">+/-</button>
+            <button onclick="addChar(&#39;)&#39;)">)</button>
+            <button onclick="clearDisplay()">C</button>
+    
+            <button onclick="trig(&#39;tan&#39;)">tg</button>
+            <button onclick="trig(&#39;atan&#39;)">atg</button>
+            <button onclick="sqrt()">√x</button>
+            <button onclick="addChar(&#39;7&#39;)">7</button>
+            <button onclick="addChar(&#39;8&#39;)">8</button>
+            <button onclick="addChar(&#39;9&#39;)">9</button>
+            <button onclick="addChar(&#39;/&#39;)">/</button>
+    
+            <button onclick="trig(&#39;ctg&#39;)">ctg</button>
+            <button onclick="trig(&#39;actg&#39;)">actg</button>
+            <button onclick="power()">xʸ</button>
+            <button onclick="addChar(&#39;4&#39;)">4</button>
+            <button onclick="addChar(&#39;5&#39;)">5</button>
+            <button onclick="addChar(&#39;6&#39;)">6</button>
+            <button onclick="addChar(&#39;*&#39;)">×</button>
+    
+            <button onclick="trig(&#39;sec&#39;)">sec</button>
+            <button onclick="trig(&#39;csc&#39;)">csc</button>
+            <button onclick="tenPower()">10ˣ</button>
+            <button onclick="addChar(&#39;1&#39;)">1</button>
+            <button onclick="addChar(&#39;2&#39;)">2</button>
+            <button onclick="addChar(&#39;3&#39;)">3</button>
+            <button onclick="addChar(&#39;-&#39;)">-</button>
+    
+            <button onclick="log()">log</button>
+            <button onclick="inverse()">1/x</button>
+            <button onclick="addChar(&#39;0&#39;)">0</button>
+            <button onclick="addChar(&#39;00&#39;)">00</button>
+            <button onclick="addChar(&#39;.&#39;)">.</button>
+            <button onclick="addChar(&#39;+&#39;)">+</button>
+            <button onclick="calculate()" class="equals">=</button>
+        </div>
+        <div class="functions">
+            <div class="functions-grid">
+                <div class="function-block">
+                    <h3>Тригонометрические функции:</h3>
+                    <div>sin - синус угла</div>
+                    <div>cos - косинус угла</div>
+                    <div>tg - тангенс угла</div>
+                    <div>ctg - котангенс угла</div>
+                    <div>sec - секанс угла</div>
+                    <div>csc - косеканс угла</div>
+                    <h3>Обратные тригонометрические функции:</h3>
+                    <div>asin - арксинус</div>
+                    <div>acos - арккосинус</div>
+                    <div>atg - арктангенс</div>
+                    <div>actg - арккотангенс</div>
+                </div>
+                <div class="function-block">
+                    <h3>Память:</h3>
+                    <div>M+ - добавить число в память</div>
+                    <div>M- - вычесть число из памяти</div>
+                    <div>MR - вызвать число из памяти</div>
+                    <div>MC - очистить память</div>
+                    <h3>Константы:</h3>
+                    <div>π - число пи (3.14159...)</div>
+                    <div>e - число Эйлера (2.71828...)</div>
+                    <h3>Другие функции:</h3>
+                    <div>√x - квадратный корень</div>
+                    <div>xʸ - возведение в степень</div>
+                    <div>10ˣ - десять в степени x</div>
+                    <div>log - десятичный логарифм</div>
+                    <div>1/x - обратное число</div>
+                    <div>+/- - смена знака</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+    let memory = 0;
+    let display = document.getElementById('display');
+    let newNumber = true;
+    let pendingOperation = '';
+    let firstOperand = null;
+    let operator = null;
+    
+    function addChar(char) {
+        if (newNumber) {
+            display.textContent = char;
+            newNumber = false;
+        } else {
+            if (display.textContent === '0' && char !== '.') {
+                display.textContent = char;
+            } else {
+                display.textContent += char;
+            }
+        }
+    }
+    
+    function clearDisplay() {
+        display.textContent = '0';
+        newNumber = true;
+        pendingOperation = '';
+        firstOperand = null;
+        operator = null;
+    }
+    
+    function plusMinus() {
+        if (display.textContent.charAt(0) === '-') {
+            display.textContent = display.textContent.slice(1);
+        } else {
+            display.textContent = '-' + display.textContent;
+        }
+    }
+    
+    function memAdd() {
+        memory += parseFloat(display.textContent);
+    }
+    
+    function memSub() {
+        memory -= parseFloat(display.textContent);
+    }
+    
+    function memRecall() {
+        display.textContent = memory.toString();
+        newNumber = true;
+    }
+    
+    function memClear() {
+        memory = 0;
+    }
+    
+    function trig(func) {
+        let num = parseFloat(display.textContent);
+        let result;
+        
+        switch(func) {
+            case 'sin':
+                result = Math.sin(num);
+                break;
+            case 'cos':
+                result = Math.cos(num);
+                break;
+            case 'tan':
+                result = Math.tan(num);
+                break;
+            case 'asin':
+                result = Math.asin(num);
+                break;
+            case 'acos':
+                result = Math.acos(num);
+                break;
+            case 'atan':
+                result = Math.atan(num);
+                break;
+            case 'ctg':
+                result = 1 / Math.tan(num);
+                break;
+            case 'sec':
+                result = 1 / Math.cos(num);
+                break;
+            case 'csc':
+                result = 1 / Math.sin(num);
+                break;
+        }
+        
+        display.textContent = result.toFixed(8);
+        newNumber = true;
+    }
+    
+    function sqrt() {
+        let num = parseFloat(display.textContent);
+        display.textContent = Math.sqrt(num).toFixed(8);
+        newNumber = true;
+    }
+    
+    function power() {
+        firstOperand = parseFloat(display.textContent);
+        operator = 'power';
+        newNumber = true;
+    }
+    
+    function tenPower() {
+        let num = parseFloat(display.textContent);
+        display.textContent = Math.pow(10, num).toFixed(8);
+        newNumber = true;
+    }
+    
+    function log() {
+        let num = parseFloat(display.textContent);
+        display.textContent = Math.log10(num).toFixed(8);
+        newNumber = true;
+    }
+    
+    function inverse() {
+        let num = parseFloat(display.textContent);
+        display.textContent = (1 / num).toFixed(8);
+        newNumber = true;
+    }
+    
+    function constant(type) {
+        if (type === 'PI') {
+            display.textContent = Math.PI.toFixed(8);
+        } else if (type === 'E') {
+            display.textContent = Math.E.toFixed(8);
+        }
+        newNumber = true;
+    }
+    
+    function calculate() {
+        try {
+            let result;
+            if (operator === 'power') {
+                let secondOperand = parseFloat(display.textContent);
+                result = Math.pow(firstOperand, secondOperand);
+            } else {
+                result = eval(display.textContent);
+            }
+            display.textContent = parseFloat(result.toFixed(8)).toString();
+            firstOperand = null;
+            operator = null;
+            newNumber = true;
+        } catch (e) {
+            display.textContent = 'Error';
+            newNumber = true;
+        }
+    }
+    </script>
+    </body></html>

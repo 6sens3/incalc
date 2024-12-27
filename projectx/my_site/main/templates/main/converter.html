@@ -1,0 +1,347 @@
+<html><head><base href="." /><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Универсальный конвертер единиц измерения</title>
+    <style>
+    body {
+        font-family: Arial, sans-serif;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background: #7fb5ac;
+    }
+    
+    .converter-container {
+        background: white;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        margin-bottom: 20px;
+    }
+    
+    h1 {
+        color:rgb(0, 0, 0);
+        text-align: center;
+        margin-bottom: 30px;
+    }
+    
+    .unit-group {
+        margin-bottom: 20px;
+    }
+    
+    select, input {
+        width: 100%;
+        padding: 10px;
+        margin: 5px 0;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+    
+    label {
+        font-weight: bold;
+        color: #34495e;
+    }
+    
+    .tab-container {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+    }
+    
+    .tab {
+        padding: 10px 20px;
+        background: #e0e0e0;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background 0.3s;
+    }
+    
+    .tab.active {
+        background: #b8d4d1;
+        color: black;
+    }
+    
+    .converter-section {
+        display: none;
+    }
+    
+    .converter-section.active {
+        display: block;
+    }
+    
+    @keyframes fadeIn {
+        from {opacity: 0;}
+        to {opacity: 1;}
+    }
+    
+    .converter-section.active {
+        animation: fadeIn 0.5s;
+    }
+    </style>
+    </head>
+    <body>
+    <a href ="/" style="width: 45px; height: 45px; left: 78px; top: 78px; position: absolute; background: #d0d0d0; border-radius: 5px;"></a>
+    <img style="width: 35px; height: 35px; left: 83px; top: 83px; position: absolute; pointer-events: none;" src="https://cdn-icons-png.flaticon.com/512/64/64429.png" />
+        <h1>Универсальный конвертер единиц измерения</h1>
+        
+        <div class="tab-container">
+            <button class="tab active" data-type="length">Длина</button>
+            <button class="tab" data-type="speed">Скорость</button>
+            <button class="tab" data-type="mass">Масса</button>
+            <button class="tab" data-type="time">Время</button>
+            <button class="tab" data-type="area">Площадь</button>
+            <button class="tab" data-type="volume">Объём</button>
+        </div>
+    
+        <div class="converter-container">
+            <div id="length" class="converter-section active">
+                <div class="unit-group">
+                    <label>От:</label>
+                    <input type="number" id="length-input" value="1">
+                    <select id="length-from">
+                        <option value="m">Метры</option>
+                        <option value="km">Километры</option>
+                        <option value="cm">Сантиметры</option>
+                        <option value="mm">Миллиметры</option>
+                        <option value="mi">Мили</option>
+                        <option value="yd">Ярды</option>
+                        <option value="ft">Футы</option>
+                        <option value="in">Дюймы</option>
+                    </select>
+                </div>
+                <div class="unit-group">
+                    <label>В:</label>
+                    <input type="number" id="length-output" readonly>
+                    <select id="length-to">
+                        <option value="m">Метры</option>
+                        <option value="km">Километры</option>
+                        <option value="cm">Сантиметры</option>
+                        <option value="mm">Миллиметры</option>
+                        <option value="mi">Мили</option>
+                        <option value="yd">Ярды</option>
+                        <option value="ft">Футы</option>
+                        <option value="in">Дюймы</option>
+                    </select>
+                </div>
+            </div>
+    
+            <div id="speed" class="converter-section">
+                <div class="unit-group">
+                    <label>От:</label>
+                    <input type="number" id="speed-input" value="1">
+                    <select id="speed-from">
+                        <option value="ms">м/с</option>
+                        <option value="kmh">км/ч</option>
+                        <option value="mph">миль/ч</option>
+                        <option value="knot">узлы</option>
+                    </select>
+                </div>
+                <div class="unit-group">
+                    <label>В:</label>
+                    <input type="number" id="speed-output" readonly>
+                    <select id="speed-to">
+                        <option value="ms">м/с</option>
+                        <option value="kmh">км/ч</option>
+                        <option value="mph">миль/ч</option>
+                        <option value="knot">узлы</option>
+                    </select>
+                </div>
+            </div>
+    
+            <div id="mass" class="converter-section">
+                <div class="unit-group">
+                    <label>От:</label>
+                    <input type="number" id="mass-input" value="1">
+                    <select id="mass-from">
+                        <option value="kg">Килограммы</option>
+                        <option value="g">Граммы</option>
+                        <option value="mg">Миллиграммы</option>
+                        <option value="t">Тонны</option>
+                        <option value="lb">Фунты</option>
+                        <option value="oz">Унции</option>
+                    </select>
+                </div>
+                <div class="unit-group">
+                    <label>В:</label>
+                    <input type="number" id="mass-output" readonly>
+                    <select id="mass-to">
+                        <option value="kg">Килограммы</option>
+                        <option value="g">Граммы</option>
+                        <option value="mg">Миллиграммы</option>
+                        <option value="t">Тонны</option>
+                        <option value="lb">Фунты</option>
+                        <option value="oz">Унции</option>
+                    </select>
+                </div>
+            </div>
+    
+            <div id="time" class="converter-section">
+                <div class="unit-group">
+                    <label>От:</label>
+                    <input type="number" id="time-input" value="1">
+                    <select id="time-from">
+                        <option value="s">Секунды</option>
+                        <option value="min">Минуты</option>
+                        <option value="h">Часы</option>
+                        <option value="d">Дни</option>
+                        <option value="w">Недели</option>
+                        <option value="m">Месяцы</option>
+                        <option value="y">Годы</option>
+                    </select>
+                </div>
+                <div class="unit-group">
+                    <label>В:</label>
+                    <input type="number" id="time-output" readonly>
+                    <select id="time-to">
+                        <option value="s">Секунды</option>
+                        <option value="min">Минуты</option>
+                        <option value="h">Часы</option>
+                        <option value="d">Дни</option>
+                        <option value="w">Недели</option>
+                        <option value="m">Месяцы</option>
+                        <option value="y">Годы</option>
+                    </select>
+                </div>
+            </div>
+    
+            <div id="area" class="converter-section">
+                <div class="unit-group">
+                    <label>От:</label>
+                    <input type="number" id="area-input" value="1">
+                    <select id="area-from">
+                        <option value="m2">Квадратные метры</option>
+                        <option value="km2">Квадратные километры</option>
+                        <option value="cm2">Квадратные сантиметры</option>
+                        <option value="ha">Гектары</option>
+                        <option value="acre">Акры</option>
+                    </select>
+                </div>
+                <div class="unit-group">
+                    <label>В:</label>
+                    <input type="number" id="area-output" readonly>
+                    <select id="area-to">
+                        <option value="m2">Квадратные метры</option>
+                        <option value="km2">Квадратные километры</option>
+                        <option value="cm2">Квадратные сантиметры</option>
+                        <option value="ha">Гектары</option>
+                        <option value="acre">Акры</option>
+                    </select>
+                </div>
+            </div>
+    
+            <div id="volume" class="converter-section">
+                <div class="unit-group">
+                    <label>От:</label>
+                    <input type="number" id="volume-input" value="1">
+                    <select id="volume-from">
+                        <option value="m3">Кубические метры</option>
+                        <option value="l">Литры</option>
+                        <option value="ml">Миллилитры</option>
+                        <option value="gal">Галлоны</option>
+                        <option value="pt">Пинты</option>
+                    </select>
+                </div>
+                <div class="unit-group">
+                    <label>В:</label>
+                    <input type="number" id="volume-output" readonly>
+                    <select id="volume-to">
+                        <option value="m3">Кубические метры</option>
+                        <option value="l">Литры</option>
+                        <option value="ml">Миллилитры</option>
+                        <option value="gal">Галлоны</option>
+                        <option value="pt">Пинты</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    
+    <script>
+    // Коэффициенты конвертации (все относительно базовой единицы)
+    const conversions = {
+        length: {
+            m: 1,
+            km: 1000,
+            cm: 0.01,
+            mm: 0.001,
+            mi: 1609.344,
+            yd: 0.9144,
+            ft: 0.3048,
+            in: 0.0254
+        },
+        speed: {
+            ms: 1,
+            kmh: 0.277778,
+            mph: 0.44704,
+            knot: 0.514444
+        },
+        mass: {
+            kg: 1,
+            g: 0.001,
+            mg: 0.000001,
+            t: 1000,
+            lb: 0.453592,
+            oz: 0.0283495
+        },
+        time: {
+            s: 1,
+            min: 60,
+            h: 3600,
+            d: 86400,
+            w: 604800,
+            m: 2592000,
+            y: 31536000
+        },
+        area: {
+            m2: 1,
+            km2: 1000000,
+            cm2: 0.0001,
+            ha: 10000,
+            acre: 4046.86
+        },
+        volume: {
+            m3: 1,
+            l: 0.001,
+            ml: 0.000001,
+            gal: 0.00378541,
+            pt: 0.000473176
+        }
+    };
+    
+    // Функция конвертации
+    function convert(type, value, fromUnit, toUnit) {
+        const fromValue = value * conversions[type][fromUnit];
+        return fromValue / conversions[type][toUnit];
+    }
+    
+    // Обработка переключения вкладок
+    document.querySelectorAll('.tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.converter-section').forEach(s => s.classList.remove('active'));
+            
+            tab.classList.add('active');
+            document.getElementById(tab.dataset.type).classList.add('active');
+        });
+    });
+    
+    // Обработка изменений во всех конвертерах
+    ['length', 'speed', 'mass', 'time', 'area', 'volume'].forEach(type => {
+        const input = document.getElementById(`${type}-input`);
+        const output = document.getElementById(`${type}-output`);
+        const fromSelect = document.getElementById(`${type}-from`);
+        const toSelect = document.getElementById(`${type}-to`);
+    
+        [input, fromSelect, toSelect].forEach(element => {
+            element.addEventListener('input', () => {
+                const value = parseFloat(input.value);
+                if (!isNaN(value)) {
+                    const result = convert(type, value, fromSelect.value, toSelect.value);
+                    output.value = result.toFixed(6);
+                } else {
+                    output.value = '';
+                }
+            });
+        });
+    });
+    </script>
+    </body></html>
